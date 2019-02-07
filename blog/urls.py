@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import url
-from django.urls import path
+from django.conf.urls import url,include
+from rest_framework.documentation import include_docs_urls
+
 # Uncomment the next two lines to enable the admin:
 import xadmin
 xadmin.autodiscover()
@@ -11,9 +12,15 @@ xversion.register_models()
 
 # from django.contrib import admin
 
+# app -> views
+from articles.views import ArticlesListView
+
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    #
-    # url(r'articles/$',)
+    # json-api
+    url(r'articles/$', ArticlesListView.as_view(), name='articles-list'),
+
+    url(r'docs/', include_docs_urls(title='博客'))
 ]

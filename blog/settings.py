@@ -30,20 +30,26 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'users.UserProfile'
+# AUTH_USER_MODEL = 'users.user_permissions'
+
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'xadmin',
     'crispy_forms',
     'reversion',
+    'rest_framework',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'apps.users.apps.UsersConfig',
+    'apps.articles.apps.ArticlesConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -88,7 +94,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'wb504128',
         'HOST': "127.0.0.1",
-        "OPTIONS": {"init_command":"SET default_storage_engine=INNODB;"}
+        "OPTIONS": {"init_command":"SET default_storage_engine=INNODB;"},
     }
 }
 
@@ -130,3 +136,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10
+}
