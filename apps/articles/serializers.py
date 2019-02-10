@@ -1,13 +1,26 @@
 from rest_framework import serializers
 from .models import Articles, ArticlesCategory
 
-class ArticlesCategorySerializer(serializers.ModelSerializer):
+
+class ArticlesCategorySerializer2(serializers.ModelSerializer):
     class Meta:
         model = ArticlesCategory
-        fields = ('index', 'name', 'desc')
+        fields = "__all__"
+
+
+class ArticlesCategorySerializer(serializers.ModelSerializer):
+    """文章类别序列化"""
+    sub_category = ArticlesCategorySerializer2(many=True)
+    # xxx = serializers.FloatField(required=False, source='xxx’)
+
+    class Meta:
+        model = ArticlesCategory
+        fields = "__all__"
+
 
 class ArticlesSerializer(serializers.ModelSerializer):
     category = ArticlesCategorySerializer()
+
     class Meta:
         model = Articles
-        fields = ('category', 'content', 'add_time', 'update_time') # "__all__"
+        fields = ('id', 'title', 'category', 'content', 'add_time', 'update_time')  # "__all__"
