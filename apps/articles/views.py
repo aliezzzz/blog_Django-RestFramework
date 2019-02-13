@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
 
 from .models import Articles, ArticlesCategory
 from .serializers import ArticlesSerializer, ArticlesCategorySerializer
@@ -40,6 +41,7 @@ class ArticlesCategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 
 class ArchiveApiView(APIView):
+    authentication_classes = (TokenAuthentication,)
 
     def get(self, request):
         date_dict = Articles.objects.distinct_date()

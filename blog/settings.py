@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
+import datetime
 import os
 import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'reversion',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -139,6 +139,9 @@ USE_L10N = True
 
 USE_TZ = False
 
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -149,8 +152,30 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 REST_FRAMEWORK = {
-    'DEFAULT_PARSER_CLASSES':[
+    'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.FormParser',
-    ]
+    ],
+    # 登录认证
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+    )
 }
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),  # days=1
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+}
+
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "504141280@qq.com"
+EMAIL_HOST_PASSWORD = "gotqagxeqrbqcaha"
+DEFAULT_FORM_EMAIL = EMAIL_HOST_USER
