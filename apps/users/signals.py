@@ -7,7 +7,6 @@ User = get_user_model()
 @receiver(post_save, sender=User)
 def create_user(sender, instance=None, created=False, **kwargs):
     if created:
-        print(instance)
         password = instance.password
         instance.set_password(password)
         instance.save()

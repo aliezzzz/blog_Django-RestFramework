@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 
     'apps.users.apps.UsersConfig',
     'apps.articles.apps.ArticlesConfig',
-
+    'apps.comment.apps.CommentConfig',
 ]
 
 MIDDLEWARE = [
@@ -156,10 +156,6 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.FormParser',
     ],
-    # 登录认证
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
@@ -179,3 +175,5 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = "504141280@qq.com"
 EMAIL_HOST_PASSWORD = "gotqagxeqrbqcaha"
 DEFAULT_FORM_EMAIL = EMAIL_HOST_USER
+
+

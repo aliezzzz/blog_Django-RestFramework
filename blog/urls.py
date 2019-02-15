@@ -5,9 +5,11 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 
+
 # app -> views
 from articles.views import ArticlesListViewSet, ArticlesCategoryViewSet, ArchiveApiView
 from users.views import EmailCodeViewSet, RegisterViewSet
+from comment.views import CommentViewSet
 
 # 配置router -> urls
 router = DefaultRouter()
@@ -15,11 +17,13 @@ router.register(r'articles', ArticlesListViewSet, base_name="articles")
 router.register(r'category', ArticlesCategoryViewSet, base_name="category")
 router.register(r'code', EmailCodeViewSet, base_name="code")
 router.register(r'register', RegisterViewSet, base_name="register")
+router.register(r'comment', CommentViewSet, base_name="comment")
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
     url(r'^archive/', ArchiveApiView.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
     # json-api
     url(r'^', include(router.urls)),
     # # drf自带的认证模式
@@ -29,3 +33,6 @@ urlpatterns = [
 
     url(r'docs/', include_docs_urls(title='博客'))
 ]
+
+
+

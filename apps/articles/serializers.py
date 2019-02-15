@@ -11,7 +11,6 @@ class ArticlesCategorySerializer2(serializers.ModelSerializer):
 class ArticlesCategorySerializer(serializers.ModelSerializer):
     """文章类别序列化"""
     sub_category = ArticlesCategorySerializer2(many=True)
-    # xxx = serializers.FloatField(required=False, source='xxx’)
 
     class Meta:
         model = ArticlesCategory

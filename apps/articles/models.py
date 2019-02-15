@@ -21,12 +21,12 @@ class ArticlesCategory(models.Model):
     def __str__(self):
         return self.name
 
+
 class ArticlesManager(models.Manager):
     def distinct_date(self):
         distinct_date_list = []
         mark_list = []
         date_list = self.values('pub_time')
-        print(date_list)
         for date in date_list:
             datetime = date['pub_time'].strftime('%Y-%m')
             dict_index = 0
@@ -36,16 +36,16 @@ class ArticlesManager(models.Manager):
             else:
                 distinct_date_list[dict_index]['count'] += 1
             dict_index += 1
-        print(distinct_date_list)
         return distinct_date_list
+
 
 class Articles(models.Model):
     """
     文章
     """
     title = models.CharField(max_length=100, default='', blank=False, null=False, verbose_name='标题')
-    content = models.TextField(null=False, blank=True, verbose_name="内容")
-    category = models.ForeignKey(ArticlesCategory, null=False, blank=False, default='', on_delete=models.CASCADE,
+    content = models.TextField(verbose_name="文章内容", help_text="文章内容")
+    category = models.ForeignKey(ArticlesCategory, null=True, blank=True, default='', on_delete=models.SET_NULL,
                                  verbose_name="类别")
     is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间")
@@ -54,10 +54,6 @@ class Articles(models.Model):
     click_count = models.IntegerField(default=0, verbose_name="点击量")
     comment_count = models.IntegerField(default=0, verbose_name="评论数")
     objects = ArticlesManager()
-
-    # @property
-    # def xxx(self):
-    #     return xxxxxx
 
     def __str__(self):
         return self.title
