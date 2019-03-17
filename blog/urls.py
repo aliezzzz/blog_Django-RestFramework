@@ -1,13 +1,15 @@
 import xadmin
 from django.conf.urls import url, include
+from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 
+from blog.settings import MEDIA_ROOT
 
 # app -> views
-from articles.views import ArticlesListViewSet, ArticlesCategoryViewSet, ArchiveApiView
+from articles.views import ArticlesListViewSet, ArticlesCategoryViewSet, ArchiveApiView, ArticleRssFeed
 from users.views import EmailCodeViewSet, RegisterViewSet
 from comment.views import CommentViewSet
 
@@ -21,11 +23,14 @@ router.register(r'comment', CommentViewSet, base_name="comment")
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
-    url(r'^archive/', ArchiveApiView.as_view()),
+    url(r'^froala_editor/', include('froala_editor.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),  # 获取媒体路径
 
     # json-api
     url(r'^', include(router.urls)),
+    url(r'^archive/', ArchiveApiView.as_view()),
+    url(r'^rss/$', ArticleRssFeed(), name='rss'),
     # # drf自带的认证模式
     # url(r'^login/', views.obtain_auth_token),
     # jwt的认证接口

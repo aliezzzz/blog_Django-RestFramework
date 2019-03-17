@@ -36,6 +36,7 @@ AUTH_USER_MODEL = 'users.UserProfile'
 # Application definition
 
 INSTALLED_APPS = [
+    'froala_editor',
     'corsheaders',
     'xadmin',
     'crispy_forms',
@@ -176,4 +177,13 @@ EMAIL_HOST_USER = "504141280@qq.com"
 EMAIL_HOST_PASSWORD = "gotqagxeqrbqcaha"
 DEFAULT_FORM_EMAIL = EMAIL_HOST_USER
 
+FROALA_EDITOR_OPTIONS = {
+    'height': 800,
+    # 'language': 'zh_cn'
+}
+FROALA_EDITOR_PLUGINS = ('align', 'char_counter', 'code_beautifier', 'code_view', 'colors', 'draggable',
+        'entities', 'font_family', 'font_size', 'image_manager', 'image', 'inline_style',
+        'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style', 'quick_insert', 'quote', 'save', 'table',
+        'url')
+FROALA_UPLOAD_PATH = 'image/'
 

@@ -16,7 +16,7 @@ class ArticlesFilter(django_filters.rest_framework.FilterSet):
         return queryset.filter(Q(category_id=value) | Q(category__parent_category_id=value))
 
     def time_filter(self, queryset, name, value):
-        return queryset.filter(pub_time__icontains=value)
+        return queryset.filter(add_time__icontains=value)
 
     class Meta:
         model = Articles
