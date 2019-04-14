@@ -11,7 +11,7 @@ from blog.settings import MEDIA_ROOT
 # app -> views
 from articles.views import ArticlesListViewSet, ArticlesCategoryViewSet, ArchiveApiView, ArticleRssFeed
 from users.views import EmailCodeViewSet, RegisterViewSet
-from comment.views import CommentViewSet
+from comment.views import CommentViewSet, CommentListViewSet
 
 # 配置router -> urls
 router = DefaultRouter()
@@ -20,6 +20,7 @@ router.register(r'category', ArticlesCategoryViewSet, base_name="category")
 router.register(r'code', EmailCodeViewSet, base_name="code")
 router.register(r'register', RegisterViewSet, base_name="register")
 router.register(r'comment', CommentViewSet, base_name="comment")
+router.register(r'commentList', CommentListViewSet, base_name="commentList")
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),

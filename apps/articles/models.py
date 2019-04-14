@@ -48,29 +48,55 @@ class ArticlesCategory(models.Model):
 # 现在函数的写法 时间必须按正常排序 不能混序
 class ArticlesManager(models.Manager):
     def distinct_date(self):
-        distinct_date_dic = {}
+        distinct_date_dic = []
         mark_list = []
         mark_year = ''
         dict_index = -1
         date_list = self.values('add_time')
+        print(date_list)
         for date in date_list:
             year = date['add_time'].strftime('%Y')
             datetime = date['add_time'].strftime('%Y-%m')
             print(datetime)
             if mark_year != year:
-                distinct_date_dic[year] = []
+                distinct_date_dic.append({year: []})
                 mark_year = year
                 dict_index = -1
             if datetime not in mark_list:
-                distinct_date_dic[year].append({'date': datetime, 'count': 1})
-                print('+++')
+                distinct_date_dic[-1][year].append({'date': datetime, 'count': 1})
+                print(distinct_date_dic)
                 dict_index += 1
                 mark_list.append(datetime)
             else:
                 print(dict_index)
-                print(distinct_date_dic[year])
-                distinct_date_dic[year][dict_index]['count'] += 1
+                print(distinct_date_dic[-1])
+                distinct_date_dic[-1][year][dict_index]['count'] += 1
         return distinct_date_dic
+
+    # def distinct_date(self):
+    #     distinct_date_dic = {}
+    #     mark_list = []
+    #     mark_year = ''
+    #     dict_index = -1
+    #     date_list = self.values('add_time')
+    #     for date in date_list:
+    #         year = date['add_time'].strftime('%Y')
+    #         datetime = date['add_time'].strftime('%Y-%m')
+    #         print(datetime)
+    #         if mark_year != year:
+    #             distinct_date_dic[year] = []
+    #             mark_year = year
+    #             dict_index = -1
+    #         if datetime not in mark_list:
+    #             distinct_date_dic[year].append({'date': datetime, 'count': 1})
+    #             print('+++')
+    #             dict_index += 1
+    #             mark_list.append(datetime)
+    #         else:
+    #             print(dict_index)
+    #             print(distinct_date_dic[year])
+    #             distinct_date_dic[year][dict_index]['count'] += 1
+    #     return distinct_date_dic
 
 
 class Articles(models.Model):
