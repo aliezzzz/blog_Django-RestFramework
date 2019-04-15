@@ -3,7 +3,7 @@ from .models import Articles, ArticlesCategory
 
 
 class ArticlesAdmin(object):
-    list_display = ['title', 'content', 'category', 'add_time', "update_time", 'click_count', 'comment_count']
+    list_display = ['title', 'content', 'category', 'add_time', 'click_count', 'comment_count']
     search_fields = ['title']
 
 

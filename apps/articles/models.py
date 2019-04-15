@@ -109,7 +109,6 @@ class Articles(models.Model):
                                  verbose_name="类别")
     is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间")
-    update_time = models.DateTimeField(null=True, blank=True, verbose_name="修改时间")
     click_count = models.IntegerField(default=0, verbose_name="点击量")
     comment_count = models.IntegerField(default=0, verbose_name="评论数")
     objects = ArticlesManager()

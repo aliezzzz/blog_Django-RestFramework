@@ -33,7 +33,7 @@ class ArticlesListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     # django_filters
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     search_fields = ('title', 'content')
-    ordering_fields = ('add_time', 'update_time')
+    ordering_fields = ('add_time',)
     filter_class = ArticlesFilter
 
     def retrieve(self, request, *args, **kwargs):
