@@ -48,13 +48,11 @@ class CommentViewSet(mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets
 
     def destroy(self, request, *args, **kwargs):
         comment_id = kwargs['pk']
-        print(comment_id)
         comment = Comment.objects.get(pk=comment_id)
         post_id = comment.post_id
         article = Articles.objects.get(id=post_id)
         if article.comment_count >= 0:
             article.comment_count -= 1
-            print(article.comment_count)
         article.save()
         instance = self.get_object()
         instance.delete()

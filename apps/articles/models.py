@@ -53,23 +53,19 @@ class ArticlesManager(models.Manager):
         mark_year = ''
         dict_index = -1
         date_list = self.values('add_time')
-        print(date_list)
         for date in date_list:
             year = date['add_time'].strftime('%Y')
             datetime = date['add_time'].strftime('%Y-%m')
-            print(datetime)
             if mark_year != year:
                 distinct_date_dic.append({year: []})
                 mark_year = year
                 dict_index = -1
             if datetime not in mark_list:
                 distinct_date_dic[-1][year].append({'date': datetime, 'count': 1})
-                print(distinct_date_dic)
+
                 dict_index += 1
                 mark_list.append(datetime)
             else:
-                print(dict_index)
-                print(distinct_date_dic[-1])
                 distinct_date_dic[-1][year][dict_index]['count'] += 1
         return distinct_date_dic
 
